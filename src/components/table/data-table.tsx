@@ -49,9 +49,15 @@ interface FilterOption {
 }
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns?: ColumnDef<TData, TValue>[];
   data: TData[];
   filters?: FilterOption[];
+  page: number;
+  limit: number;
+  total: number;
+  handlePageChange: (page: number) => void;
+  handleSortChange: (sortBy?: string, sortOrder?: "asc" | "desc") => void;
+  currentSort: { sortBy?: string; sortOrder?: "asc" | "desc" };
 }
 
 export function DataTable<TData, TValue>({
@@ -163,10 +169,7 @@ export function DataTable<TData, TValue>({
       </div>
       {/* <DataTablePagination table={table} /> */}
       <div className="mt-4 flex items-center justify-between">
-        <div className="text-sm text-gray-500">
-          showing {data?.length} of {total} products
-        </div>
-
+        <div></div>
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"

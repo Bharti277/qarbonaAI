@@ -7,17 +7,63 @@ export interface Product {
   price: number;
 }
 
-export const fetchProducts = async (): Promise<Product[]> => {
-  try {
-    const response = await fetch(`${url}?limit=${10}&skip=${0}`);
-    if (!response.ok) {
-      throw new Error(`Error fetching products`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
-  }
-}
+// export const fetchProducts = async (): Promise<Product[]> => {
+//   try {
+//     const response = await fetch(`${url}?limit=${10}&skip=${0}`);
+//     if (!response.ok) {
+//       throw new Error(`Error fetching products`);
+//     }
+//     return await response.json();
+//   } catch (error) {
+//     console.error("Failed to fetch products:", error);
+//   }
+// }
+
+// export const fetchProducts = async ({
+//   limit,
+//   skip,
+// }: {
+//   limit: number;
+//   skip: number;
+// }): Promise<{ products: Product[]; total: number }> => {
+//   try {
+//     const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
+//     if (!response.ok) {
+//       throw new Error("Error fetching products");
+//     }
+//     return await response.json();
+//   } catch (error) {
+//     console.error("Failed to fetch products:", error);
+//     throw error;
+//   }
+// };
+
+// utils/api.ts
+
+export const fetchProducts = async ({
+  limit,
+  skip,
+  sortBy,
+  sortOrder,
+}: {
+  limit: number;
+  skip: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}): Promise<{ products: Product[]; total: number }> => {
+  const sortParam = sortBy ? `&sort=${sortBy}` : "";
+  const orderParam = sortOrder ? `&order=${sortOrder}` : "";
+
+  const response = await fetch(
+    `https://dummyjson.com/products?limit=${limit}&skip=${skip}${sortParam}${orderParam}`
+  );
+
+  if (!response.ok) throw new Error("Error fetching products");
+
+  return await response.json();
+};
+
+
 
 export const deleteProductItem = async (id: number | string): Promise<void> => {
   try {
