@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "@/utils/api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productSchema, type Product } from "@/lib/types";
 
 const Page = () => {
   const router = useRouter();
@@ -16,6 +18,8 @@ const Page = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: zodResolver(productSchema),
+
     defaultValues: {
       title: "",
       rating: 0,

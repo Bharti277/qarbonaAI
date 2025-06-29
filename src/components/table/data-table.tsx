@@ -65,8 +65,10 @@ export function DataTable<TData, TValue>({
   data,
   filters,
   handlePageChange,
+  handleSortChange,
   limit,
   page,
+  currentSort,
   total,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
@@ -131,7 +133,25 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Title</TableHead>
+              {/* <TableHead className="w-[100px]">Title</TableHead>
+               */}
+              <TableHead
+                className="cursor-pointer"
+                onClick={() => {
+                  const isAsc =
+                    currentSort.sortBy === "title" &&
+                    currentSort.sortOrder === "asc";
+                  handleSortChange("title", isAsc ? "desc" : "asc");
+                }}
+              >
+                Title
+                {currentSort.sortBy === "title" && (
+                  <span className="ml-1">
+                    {currentSort.sortOrder === "asc" ? "↑" : "↓"}
+                  </span>
+                )}
+              </TableHead>
+
               <TableHead>Brand</TableHead>
               <TableHead>Category</TableHead>
               <TableHead className="text-right">Price</TableHead>
