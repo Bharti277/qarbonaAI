@@ -26,7 +26,7 @@ const Page = () => {
   });
 
   const backButton = () => {
-    router.push("/");
+    router.push("/products");
   };
 
   const addProductMutation = useMutation({
@@ -37,7 +37,7 @@ const Page = () => {
   });
   const onSubmit = (data) => {
     addProductMutation.mutate(data);
-    router.push("/");
+    router.push("/products");
   };
 
   return (

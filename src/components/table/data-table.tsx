@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Edit, Trash } from "lucide-react";
+import { ChevronLeft, ChevronRight, Edit, Trash } from "lucide-react";
 import { deleteProductItem } from "@/utils/api";
 import {
   QueryClient,
@@ -36,6 +36,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 interface FilterOption {
   columnId: string;
@@ -57,6 +58,10 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   filters,
+  handlePageChange,
+  limit,
+  page,
+  total,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -110,10 +115,13 @@ export function DataTable<TData, TValue>({
   React.useEffect(() => {
     document.title = "All Products – MyShop";
   }, []);
+
+  const totalPages = Math.ceil(total / limit);
+
   return (
     <div className="space-y-4">
       {/* <DataTableToolbar table={table} filters={filters} /> */}
-      <div className="min-h-screen rounded-md border">
+      <div className="max-h-screen rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -153,7 +161,36 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {/* <DataTablePagination table={table} /> */}
+      <div className="mt-4 flex items-center justify-between">
+        <div className="text-sm text-gray-500">
+          showing {data?.length} of {total} products
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page === 1}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+
+          <div className="text-sm">
+            Page {page} of {totalPages}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page >= totalPages}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

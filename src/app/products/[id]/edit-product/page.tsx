@@ -51,7 +51,7 @@ const Page = () => {
   }, [data, reset]);
 
   const backToProducts = () => {
-    router.push("/");
+    router.push("/products");
   };
 
   const queryClient = useQueryClient();
@@ -61,7 +61,7 @@ const Page = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       queryClient.invalidateQueries({ queryKey: ["product", id] });
-      router.push("/");
+      router.push("/products");
     },
     onError: (err) => {
       console.error("Update failed:", err);

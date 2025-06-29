@@ -30,9 +30,11 @@ const Page = () => {
   }, [data?.brand]);
 
   const backToProducts = () => {
-    router.push("/");
+    router.push("/products");
   };
-
+  if (isLoading) {
+    return <div className="text-center">Loading...</div>;
+  }
   return (
     <>
       <div className="container p-4">
