@@ -21,11 +21,21 @@ import { DataTableToolbar } from "./data-table-toolbar";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { Edit, Trash } from "lucide-react";
+import { deleteProductItem } from "@/utils/api";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 interface FilterOption {
   columnId: string;
@@ -55,6 +65,8 @@ export function DataTable<TData, TValue>({
     [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -78,54 +90,66 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: number | string) => deleteProductItem(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+
+  const handleRowProductItem = (id: number) => {
+    router.push(`/products/${id}`);
+    console.log("Row clicked with ID:", id);
+  };
+
+  const handleEditProductById = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/products/${id}/edit-product`);
+  };
+
+  React.useEffect(() => {
+    document.title = "All Products – MyShop";
+  }, []);
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} filters={filters} />
-      <div className="rounded-md border">
+      {/* <DataTableToolbar table={table} filters={filters} /> */}
+      <div className="min-h-screen rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
+            <TableRow>
+              <TableHead className="w-[100px]">Title</TableHead>
+              <TableHead>Brand</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead className="text-right">Price</TableHead>
+              <TableHead className="text-right">Rating</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
+            {data.map((product) => (
+              <TableRow
+                key={product.id}
+                className="cursor-pointer"
+                onClick={() => handleRowProductItem(product.id)}
+              >
+                <TableCell className="font-medium">{product.title}</TableCell>
+                <TableCell>{product.brand}</TableCell>
+                <TableCell>{product.category}</TableCell>
+                <TableCell className="text-right">{product.price}</TableCell>
+                <TableCell className="text-right">{product.rating}/5</TableCell>
+                <TableCell className="text-right">
+                  <div
+                    className="flex items-center justify-end space-x-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Edit
+                      onClick={(e) => handleEditProductById(product.id, e)}
+                    />
+                    <Trash onClick={() => deleteMutation.mutate(product.id)} />
+                  </div>
                 </TableCell>
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -133,3 +157,4 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+//
