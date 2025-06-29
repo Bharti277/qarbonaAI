@@ -26,19 +26,18 @@ Enhance the existing Next.js boilerplate by integrating the [DummyJSON Products 
 ### 4. CRUD Functionality
 
 - **Add Product**:
-
   - Create a form to add a new product.
   - Use **Zod** with `react-hook-form` for form validation.
   - Send a POST request to `https://dummyjson.com/products/add`.
   - Upon successful addition, update the TanStack Query's cache to include the new product.
-- **Update Product**:
 
+- **Update Product**:
   - Allow editing of existing product details.
   - Use **Zod** for validating the updated data.
   - Send a PUT request to `https://dummyjson.com/products/{id}`.
   - Reflect the changes in the TanStack Query's cache upon successful update.
-- **Delete Product**:
 
+- **Delete Product**:
   - Implement a delete functionality for each product.
   - Send a DELETE request to `https://dummyjson.com/products/{id}`.
   - Remove the product from the TanStack Query's cache upon successful deletion.
@@ -63,11 +62,11 @@ Enhance the existing Next.js boilerplate by integrating the [DummyJSON Products 
 Use `zod` and `@hookform/resolvers/zod` for schema validation. Example schema:
 
 ```typescript
-import { z } from 'zod';
+import { z } from "zod";
 
 export const productSchema = z.object({
-  username: z.string().min(1, { message: 'Username is required' }),
-  password: z.string().min(1, { message: 'Password is required' })
+  username: z.string().min(1, { message: "Username is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 ```
 
@@ -77,12 +76,12 @@ Integrate this schema with `react-hook-form` to validate form inputs and display
 
 ## Evaluation Criteria
 
-* **Functionality** : Correct implementation of data fetching, pagination, sorting, CRUD operations, and routing.
-* **Code Quality** : Clean, readable, and maintainable code.
-* **User Experience** : Intuitive and responsive UI/UX.
-* **Validation** : Effective use of Zod for form validation with appropriate error messages.
-* **State Management** : Efficient use of TanStack Query for data fetching and state management.
-* **Error Handling** : Proper handling of API errors and edge cases.
+- **Functionality** : Correct implementation of data fetching, pagination, sorting, CRUD operations, and routing.
+- **Code Quality** : Clean, readable, and maintainable code.
+- **User Experience** : Intuitive and responsive UI/UX.
+- **Validation** : Effective use of Zod for form validation with appropriate error messages.
+- **State Management** : Efficient use of TanStack Query for data fetching and state management.
+- **Error Handling** : Proper handling of API errors and edge cases.
 
 ---
 
@@ -92,6 +91,8 @@ Integrate this schema with `react-hook-form` to validate form inputs and display
 2. **Make Your Changes**
 3. **Push Changes and Create a Pull Request** :
 
-* Ensure the base repository is `QarbonaAI/fe-task` and the base branch is `main`.
-* Set the title of the pull request to your  **full name** .
-* Provide a brief description of the changes you've made.
+- Ensure the base repository is `QarbonaAI/fe-task` and the base branch is `main`.
+- Set the title of the pull request to your **full name** .
+- Provide a brief description of the changes you've made.
+
+## Project is submitted by Deependra Bharti

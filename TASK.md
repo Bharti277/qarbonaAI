@@ -27,19 +27,18 @@ Enhance the existing Next.js boilerplate by integrating the [DummyJSON Products 
 ### 4. CRUD Functionality
 
 - **Add Product**:
-
   - Create a form to add a new product.
   - Use **Zod** with `react-hook-form` for form validation.
   - Send a POST request to `https://dummyjson.com/products/add`.
   - Upon successful addition, update the TanStack Query's cache to include the new product.
-- **Update Product**:
 
+- **Update Product**:
   - Allow editing of existing product details.
   - Use **Zod** for validating the updated data.
   - Send a PUT request to `https://dummyjson.com/products/{id}`.
   - Reflect the changes in the TanStack Query's cache upon successful update.
-- **Delete Product**:
 
+- **Delete Product**:
   - Implement a delete functionality for each product.
   - Send a DELETE request to `https://dummyjson.com/products/{id}`.
   - Remove the product from the TanStack Query's cache upon successful deletion.
@@ -58,13 +57,14 @@ Enhance the existing Next.js boilerplate by integrating the [DummyJSON Products 
     - `/products/12`: “iPhone 9 – MyShop”
 
 ### Bonus (Optional)
+
 If you complete the core functionality early and want to take your submission further, consider implementing one or more of the following enhancements:
 
 - **Search:** Add a client-side debounced search feature to allow users to filter products by title or brand.
 - **Optimistic Updates:** Use TanStack Query's `onMutate` and `onSuccess` callbacks to implement optimistic updates for create, update, or delete operations.
 - **Skeleton Loaders:** Display skeleton screens or shimmer effects while the data is being fetched, especially on slower networks.
 - **Extras:** Feel free to use libraries such as zustand, shadCN or framer-motion if it enhances your project.
-These extras are not required, but they will help your submission stand out and demonstrate attention to detail.
+  These extras are not required, but they will help your submission stand out and demonstrate attention to detail.
 
 ---
 
@@ -73,11 +73,11 @@ These extras are not required, but they will help your submission stand out and 
 Use `zod` and `@hookform/resolvers/zod` for schema validation. Example schema:
 
 ```typescript
-import { z } from 'zod';
+import { z } from "zod";
 
 export const productSchema = z.object({
-  username: z.string().min(1, { message: 'Username is required' }),
-  password: z.string().min(1, { message: 'Password is required' })
+  username: z.string().min(1, { message: "Username is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 ```
 
@@ -87,12 +87,12 @@ Integrate this schema with `react-hook-form` to validate form inputs and display
 
 ## Evaluation Criteria
 
-* **Functionality** : Correct implementation of data fetching, pagination, sorting, CRUD operations, and routing.
-* **Code Quality** : Clean, readable, and maintainable code.
-* **User Experience** : Intuitive and responsive UI/UX.
-* **Validation** : Effective use of Zod for form validation with appropriate error messages.
-* **State Management** : Efficient use of TanStack Query for data fetching and state management.
-* **Error Handling** : Proper handling of API errors and edge cases.
+- **Functionality** : Correct implementation of data fetching, pagination, sorting, CRUD operations, and routing.
+- **Code Quality** : Clean, readable, and maintainable code.
+- **User Experience** : Intuitive and responsive UI/UX.
+- **Validation** : Effective use of Zod for form validation with appropriate error messages.
+- **State Management** : Efficient use of TanStack Query for data fetching and state management.
+- **Error Handling** : Proper handling of API errors and edge cases.
 
 ---
 
@@ -101,8 +101,10 @@ Integrate this schema with `react-hook-form` to validate form inputs and display
 1. **Clone the base repository**  
    URL: `https://github.com/QarbonaAI/fe-task`
 2. **Create a private GitHub repository** under your own account.
-4. Add the following GitHub username(s) as collaborators:
+3. Add the following GitHub username(s) as collaborators:
    - `aditansh`, `AchintyaQarbona`, `siddharth1825`, `abhitrueprogrammer`
-5. Submit the **private repository link** as part of your application.
+4. Submit the **private repository link** as part of your application.
 
-* Don't make the repository public at any time. This ensures fairness and prevents plagiarism.
+- Don't make the repository public at any time. This ensures fairness and prevents plagiarism.
+
+## Project is submitted by Deependra Bharti
